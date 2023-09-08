@@ -1,4 +1,4 @@
-const unsortedArray = [1,8,5,3,2,-10,20];
+import {animateArrayDivision} from './animations.js' 
 
 function arraySplitter(array) {
   let arrayCopy = [...array]
@@ -30,14 +30,50 @@ function merge(array1, array2, array) {
   }
 }
 
-function mergeSort(array) {
+export function mergeSort(array) {
   if (array.length < 2 ) return; 
   let splitArray = arraySplitter(array);
   mergeSort(splitArray.firstHalf);
   mergeSort(splitArray.secondHalf);
-  merge(splitArray.firstHalf, splitArray.secondHalf, array);
+  // merge(splitArray.firstHalf, splitArray.secondHalf, array);
+  return array;
 }
 
-mergeSort(unsortedArray);
+// function mergeNew(array1, array2, array) {
+//   let i = 0;
+//   let j = 0;
+//   let pos = 0;
+
+//   while(i < array1.length && j < array2.length) {
+//     if (array1[i] > array2[j]) {
+//       array[pos++] = array2[j++];
+//     } else { 
+//       array[pos++] = array1[i++];
+//     }
+//   } 
+
+//   while(i < array1.length) {
+//     array[pos++] = array1[i++]; 
+//   } 
+
+//   while(j < array2.length) {
+//     array[pos++] = array2[j++]; 
+//   }
+// }
+
+
+export function mergeSortNew(array) {
+  if (array.length < 2 ) return; 
+  let pos = 1;
+  let splitArray = arraySplitter(array, array);
+  animateArrayDivision(splitArray.firstHalf, splitArray.secondHalf);
+  setTimeout(mergeSortNew, 5000, splitArray.firstHalf);
+  setTimeout(mergeSortNew, 10000, splitArray.secondHalf);
+  // mergeSortNew(splitArray.firstHalf);
+  // mergeSortNew(splitArray.secondHalf);
+  // mergeNew(splitArray.firstHalf);
+  return array;
+}
+
 
 

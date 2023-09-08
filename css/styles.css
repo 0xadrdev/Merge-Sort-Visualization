@@ -35,6 +35,37 @@ body {
   margin: 0  auto;
 }
 
+/* List */
+
+.list-container {
+  position: relative;
+  margin: 20px auto 0;
+  max-width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.element {
+  position: relative;
+  border: 1px solid #212326;
+  background: #d41e1e;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  top: 0; 
+  left: 0;
+  transition: top 5000ms, left 5000ms, transform 5000ms;
+}
+
+.container-test {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
 /* Buttons */
 
 .buttons {
@@ -53,6 +84,12 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 5px;
+  font-size: 1.15rem;
+  transition: transform 500ms; 
+}
+
+.buttons .btn:hover {
+  transform: scale(1.1);
 }
 
 .buttons .sort-btn {
