@@ -1,15 +1,14 @@
 const listContainer = document.querySelector(".list-container");
 
-function createNewListElement(data) {
-  return Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
+function createNewListElement(data, pos) {
+  let element = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
+  element.style.left = pos + "px";
+  element.data = data; 
+  return {data, element};
 }
 
-function getTranslateValue(element) {
-  let matrix = new WebKitCSSMatrix(getComputedStyle(element).transform);
-  return {top: matrix.f, left: matrix.e}
-};
-
 function getPosition(element) {
+const listContainer = document.querySelector(".list-container");
   let listContainerRect = listContainer.getBoundingClientRect();
   var rect = element.getBoundingClientRect();
   return {
@@ -18,26 +17,35 @@ function getPosition(element) {
   };
 }
 
-export function animateArrayDivision(leftArray, rightArray) {
-  let newContainer = Object.assign(document.createElement("div"), {classList: "container-test"});
-  let firsElementPosition = leftArray[0];
+function setElementToPosition(element, top, left) {
+  element.style.top = `${top}px`;
+  element.style.left = `${left}px`;
+}
 
-  newContainer.style.cssText = `transform: translate(${getPosition(firsElementPosition).left}px, ${getPosition(firsElementPosition).top}px);`;
+export function animateArrayDivision(leftArray, rightArray, parentArray, time) {
+  let firsElementPosition = getPosition(leftArray[0].element);
+
+  parentArray.style.top = firsElementPosition.top + "px";
   
-  leftArray.forEach((element, i) => {
-    let newElement = createNewListElement(element.innerText);
-    element.style.setProperty("transform", `translate(${getTranslateValue(element).left - 10}px, ${getTranslateValue(element).top + 60}px)`)
-    newContainer.append(newElement);
+  leftArray.forEach(elementObject => {
+    let newObjectElement = createNewListElement(elementObject.data, firsElementPosition.left);
+    let elementPosition = getPosition(elementObject.element);
+    setElementToPosition(elementObject.element, elementPosition.top + 60, elementPosition.left - 10);
+    parentArray.append(newObjectElement.element);
+    firsElementPosition.left += 40;
   });
 
-  rightArray.forEach((element, i) => {
-    let newElement = createNewListElement(element.innerText);
-    element.style.setProperty("transform", `translate(${getTranslateValue(element).left + 10}px, ${getTranslateValue(element).top + 60}px)`)
-    newContainer.append(newElement);
+  rightArray.forEach(element => {
+    let newElement = createNewListElement(element.data, firsElementPosition.left);
+    let elementPosition = getPosition(element.element);
+    setElementToPosition(element.element, elementPosition.top + 60, elementPosition.left + 10);
+    parentArray.append(newElement.element);
+    firsElementPosition.left += 40;
   });
 
-  listContainer.append(newContainer);
-  return newContainer;
+  listContainer.append(parentArray);
+
+  return parentArray;
 };
 
 
