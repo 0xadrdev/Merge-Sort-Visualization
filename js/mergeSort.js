@@ -26,6 +26,9 @@ function setElementToPosition(element, top, left, time) {
   setTimeout(() => {
     element.style.top = `${top}px`;
     element.style.left = `${left}px`;
+    setTimeout(() => {
+      element.style.background = "#64d419";
+    }, 1000);
   }, time);
 }
 
@@ -51,32 +54,27 @@ function merge(array1, array2, array, parentArray, time) {
         setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array1[i++];
       }
-      tiempo += 5000;
+      tiempo += 1000;
     } 
   
     while(i < array1.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array1[i++]; 
-      tiempo += 5000;
+      tiempo += 1000;
     } 
   
     while(j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array2[j++]; 
-      tiempo += 5000;
+      tiempo += 1000;
     }
 
     setTimeout(() => {
       parentArray.remove();
-    }, 5000);
+    }, 1000 * parentArrayNodes.length);
 
-    console.log("array1: ", array1);
-    console.log("array2: ", array2);
-    console.log("array: ", array);
-    console.log("parentArrat", parentArray);
-    console.log("........................");
   }, time);
 }
 
@@ -86,14 +84,14 @@ export function mergeSort(array) {
   let arrayParent = createParentArray();
   let splittedArray = arraySplitter(array);
 
-  setTimeout(animateArrayDivision, time, [...splittedArray.firstHalf], [...splittedArray.secondHalf], arrayParent, time);
-  time += 5000;
+  setTimeout(animateArrayDivision, time, [...splittedArray.firstHalf], [...splittedArray.secondHalf], arrayParent);
+  time += 2000;
 
   mergeSort(splittedArray.firstHalf);
   mergeSort(splittedArray.secondHalf);
   merge(splittedArray.firstHalf, splittedArray.secondHalf, array, arrayParent, time);
 
-  time += 5000;
+  time += 1000 * array.length;
 }
 
 // console.log(mergeSort([4,3,2,1]));

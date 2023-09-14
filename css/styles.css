@@ -54,7 +54,7 @@ body {
   font-weight: bold;
   top: 0; 
   left: 0;
-  transition: top 5000ms, left 5000ms, transform 5000ms;
+  transition: top 1000ms, left 1000ms, transform 1000ms;
   /* z-index: 1000000; */
 }
 
@@ -101,33 +101,3 @@ body {
 .buttons .unsort-btn {
   background: linear-gradient(to right, #b80000, #d41e1e);
 }
-
-/* function merge(array1, array2, array, parentArray) {
-
-
-  let i = 0;
-  let j = 0;
-  let pos = 0;
-
-  while(i < array1.length && j < array2.length) {
-    if (array1[i] > array2[j]) {
-      array[pos++] = array2[j++];
-    } else { 
-      array[pos++] = array1[i++];
-    }
-  } 
-
-  while(i < array1.length) {
-    array[pos++] = array1[i++]; 
-  } 
-
-  while(j < array2.length) {
-    array[pos++] = array2[j++]; 
-  }
-
-  console.log("array1: ", array1);
-  console.log("array2: ", array2);
-  console.log("array: ", array);
-  console.log("parentArrat", parentArray);
-  console.log("........................");
-} */

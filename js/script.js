@@ -5,12 +5,6 @@ const listContainer = document.querySelector(".list-container");
 const sortBtn = document.querySelector(".sort-btn");
 const unsortBtn = document.querySelector(".unsort-btn");
 
-// function createNewListElement(data, pos) {
-//   let newListElement = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
-//   newListElement.style.left = pos + "px";
-//   return newListElement;
-// }
-
 function createNewListElement(data, pos) {
   let element = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
   element.style.left = pos + "px";
@@ -35,10 +29,6 @@ function createArray(array) {
 sortBtn.onclick = () => {
   const elements = document.querySelectorAll(".element");
   mergeSort(array);
-  // mergeSort(elements);
-  // console.log(mergeSort(elements));
-  // mergeSort([4,3,2,1]);
-  // console.log(mergeSort([4,3,2,1]));
 };
 
 let array = createArray([4,3,2,1]);
