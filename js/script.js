@@ -1,5 +1,5 @@
 
-import { mergeSort, mergeSortNew } from "./mergeSort.js";
+import { mergeSort } from "./mergeSort.js";
 
 const listContainer = document.querySelector(".list-container");
 const sortBtn = document.querySelector(".sort-btn");
@@ -34,7 +34,7 @@ function createArray(array) {
 
 sortBtn.onclick = () => {
   const elements = document.querySelectorAll(".element");
-  mergeSortNew(elements);
+  mergeSort(array);
   // mergeSort(elements);
   // console.log(mergeSort(elements));
   // mergeSort([4,3,2,1]);
@@ -43,4 +43,3 @@ sortBtn.onclick = () => {
 
 let array = createArray([4,3,2,1]);
 
-mergeSort(array);
