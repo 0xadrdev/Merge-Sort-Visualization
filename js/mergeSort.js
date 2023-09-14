@@ -38,32 +38,35 @@ function merge(array1, array2, array, parentArray, time) {
   let i = 0;
   let j = 0;
   let pos = 0;
+  let tiempo = 0;
 
   setTimeout(() => {
     let parentArrayNodes = [...parentArray.childNodes];
     while(i < array1.length && j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       if (array1[i].data > array2[j].data) {
-        setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left);
+        setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array2[j++];
       } else { 
-        setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left);
+        setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array1[i++];
       }
+      tiempo += 5000;
     } 
   
     while(i < array1.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
-      setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left);
+      setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array1[i++]; 
+      tiempo += 5000;
     } 
   
     while(j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
-      setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left);
+      setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array2[j++]; 
+      tiempo += 5000;
     }
-
 
     setTimeout(() => {
       parentArray.remove();
@@ -76,7 +79,6 @@ function merge(array1, array2, array, parentArray, time) {
     console.log("........................");
   }, time);
 }
-
 
 export function mergeSort(array) {
   if (array.length < 2 ) return; 
