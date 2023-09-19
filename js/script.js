@@ -1,23 +1,26 @@
-
 import { mergeSort } from "./mergeSort.js";
+import { createNewListElement } from "./animations.js";
 
 const listContainer = document.querySelector(".list-container");
-const sortBtn = document.querySelector(".sort-btn");
+const sortBtn = document.getElementById("sort-btn");
 const unsortBtn = document.querySelector(".unsort-btn");
+const errorElement = document.querySelector(".error");
 
-function createNewListElement(data, pos) {
-  let element = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
-  element.style.left = pos + "px";
-  element.data = data; 
-  // return element;
-  return {data, element};
+export let sortingArray = false;
+
+function removeDisplayedArray() {
+  const elements = document.querySelectorAll(".element");
+  elements.forEach(element => {
+    element.remove();
+  });
 }
 
-function createArray(array) {
+export function displayArray(array) {
   let pos = 0;
   let newArray = []
-  listContainer.style.width = `${array.length * 40}px`;
-  for (const element of array) {
+  removeDisplayedArray();
+  listContainer.style.width = `${array.length * 40}px`; // To center the array. 
+  for (const element of array) { 
     let newElement = createNewListElement(element, pos);
     listContainer.append(newElement.element);
     newArray.push(newElement);
@@ -26,10 +29,21 @@ function createArray(array) {
   return newArray; 
 }
 
+function setError(errorText) {
+  errorElement.innerText = errorText;
+  errorElement.classList.toggle("show");
+}
+
 sortBtn.onclick = () => {
-  const elements = document.querySelectorAll(".element");
+  if (sortingArray) setError("Wait until array sorting process finish. ");
   mergeSort(array);
+  sortingArray = true;
 };
 
-let array = createArray([4,3,2,1]);
+unsortBtn.onclick = () => {
+  if (sortingArray) setError("Wait until array sorting process finish. ");
+  // createArray("[1,4,21,3]");
+};
+
+let array = displayArray([1,4,21,3]);
 

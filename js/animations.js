@@ -1,14 +1,15 @@
+import { sortingArray } from "./script.js";
+
 const listContainer = document.querySelector(".list-container");
 
-function createNewListElement(data, pos) {
+export function createNewListElement(data, pos) {
   let element = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
   element.style.left = pos + "px";
   element.data = data; 
   return {data, element};
 }
 
-function getPosition(element) {
-const listContainer = document.querySelector(".list-container");
+export function getPosition(element) {
   let listContainerRect = listContainer.getBoundingClientRect();
   var rect = element.getBoundingClientRect();
   return {
@@ -17,18 +18,23 @@ const listContainer = document.querySelector(".list-container");
   };
 }
 
-// function setElementToPosition(element, top, left) {
-//   element.style.top = `${top}px`;
-//   element.style.left = `${left}px`;
-// }
+function changeElementColor(element, time) {
+  setTimeout(() => {
+    element.style.background = "#64d419";
+  }, time);
+}
 
-function setElementToPosition(element, top, left, time) {
+export function mergeAnimation(element, top, left, time) {
+  setElementToPosition(element, top, left, time);
+  changeElementColor(element, time + 1000);
+}
+
+export function setElementToPosition(element, top, left, time) {
   setTimeout(() => {
     element.style.top = `${top}px`;
     element.style.left = `${left}px`;
   }, time);
 }
-
 
 export function animateArrayDivision(leftArray, rightArray, parentArray) {
   let firsElementPosition = getPosition(leftArray[0].element);

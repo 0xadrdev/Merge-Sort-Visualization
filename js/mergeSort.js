@@ -1,8 +1,6 @@
-import {animateArrayDivision} from './animations.js'
+import {animateArrayDivision, mergeAnimation, getPosition} from './animations.js'
 
 let time = 0;
-
-const listContainer = document.querySelector(".list-container");
 
 function arraySplitter(array) {
   let arrayCopy = [...array]
@@ -10,26 +8,6 @@ function arraySplitter(array) {
   let firstHalf = arrayCopy.splice(0, middleIndex);
   let secondHalf = arrayCopy.splice(-middleIndex);
   return {firstHalf, secondHalf};
-}
-
-function getPosition(element) {
-  const listContainer = document.querySelector(".list-container");
-    let listContainerRect = listContainer.getBoundingClientRect();
-    var rect = element.getBoundingClientRect();
-    return {
-      top: rect.top - listContainerRect.top,
-      left: rect.left - listContainerRect.left
-    };
-  }
-
-function setElementToPosition(element, top, left, time) {
-  setTimeout(() => {
-    element.style.top = `${top}px`;
-    element.style.left = `${left}px`;
-    setTimeout(() => {
-      element.style.background = "#64d419";
-    }, 1000);
-  }, time);
 }
 
 function createParentArray() {
@@ -48,10 +26,10 @@ function merge(array1, array2, array, parentArray, time) {
     while(i < array1.length && j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       if (array1[i].data > array2[j].data) {
-        setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
+        mergeAnimation(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array2[j++];
       } else { 
-        setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
+        mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array1[i++];
       }
       tiempo += 1000;
@@ -59,14 +37,14 @@ function merge(array1, array2, array, parentArray, time) {
   
     while(i < array1.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
-      setElementToPosition(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
+      mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array1[i++]; 
       tiempo += 1000;
     } 
   
     while(j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
-      setElementToPosition(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
+      mergeAnimation(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array2[j++]; 
       tiempo += 1000;
     }
@@ -93,5 +71,3 @@ export function mergeSort(array) {
 
   time += 1000 * array.length;
 }
-
-// console.log(mergeSort([4,3,2,1]));

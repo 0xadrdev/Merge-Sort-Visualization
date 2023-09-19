@@ -7,10 +7,23 @@
   <script type="module" src="js/script.js" defer="defer"></script>
   <script type="module" src="js/mergeSort.js"></script>
   <script type="module" src="js/animations.js"></script>
+  <script type="module" src="js/menu.js"></script>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
+  <div class="menu">
+    <div class="header-menu">
+      <h1>Settings</h1>
+      <i class="fa-solid fa-x"></i>
+    </div>
+    <label class="label-input" for="array-input">Array to sort: </label>
+    <input class="input" type="text" id="array-input" value="1000" placeholder="[4,3,2,1]">
+    <label class="label-input" for="animation-input">Animation-input</label>
+    <input class="input" type="number" id="animation-input" placeholder="Miliseconds">
+    <p class="message">Saved!</p>
+    <button id="save-btn" class="btn sort-btn">Save</button>
+  </div>
   <div class="container">
     <div class="header">
       <i class="fa-solid fa-bars"></i>
@@ -18,8 +31,9 @@
     </div>
     <div class="list-container">
     </div>
+    <p class="error">Show me...</p>
     <div class="buttons">
-      <button class="btn sort-btn">Sort</button>
+      <button id="sort-btn" class="btn sort-btn">Sort</button>
       <button class="btn unsort-btn">Unsort</button>
     </div>
   </div>

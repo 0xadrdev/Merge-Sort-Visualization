@@ -54,7 +54,7 @@ body {
   font-weight: bold;
   top: 0; 
   left: 0;
-  transition: top 1000ms, left 1000ms, transform 1000ms;
+  transition: top 1000ms, left 1000ms;
   /* z-index: 1000000; */
 }
 
@@ -79,7 +79,7 @@ body {
   padding: 0 30px;
 }
 
-.buttons .btn {
+.btn {
   flex: 1;
   padding: 15px;
   color: #fff; 
@@ -90,14 +90,101 @@ body {
   transition: transform 500ms; 
 }
 
-.buttons .btn:hover {
+.btn:hover {
   transform: scale(1.1);
 }
 
-.buttons .sort-btn {
+.sort-btn {
   background: linear-gradient(to right, #64d419, #048700);
 }
 
-.buttons .unsort-btn {
+.unsort-btn {
   background: linear-gradient(to right, #b80000, #d41e1e);
+}
+
+/* Menu */
+
+.menu {
+  position: absolute;
+  background-color: #000;
+  width: 200px;
+  padding: 20px;
+  height: 100vh;
+  z-index: 1000;
+  transform: translate(-100%);
+  transition: transform 2500ms;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
+}
+
+.header-menu i {
+  font-size: 11px;
+  transition: transform 500ms;
+}
+
+.header-menu i:hover {
+  transform: scale(2);
+}
+
+.menu.show {
+  transform: translate(0);
+}
+
+label {
+  margin-top: 15px;
+  display: inline-block;
+}
+
+input {
+  width: 100%;
+  padding: 5px 10px;
+  margin: 5px 0 0;
+  font-size: .9rem;
+}
+
+.menu .btn {
+  width: 100%;
+  margin-top: 25px;
+}
+
+/* Message */
+
+.message {
+  color: #64d419;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 25px;
+  visibility: hidden;
+}
+
+.message.show {
+  visibility: visible;
+}
+
+.message.error {
+  color: #d41e1e;
+}
+
+/* Error */
+
+.container .error {
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  color: #d41e1e;
+  bottom: 150px;
+  left: 0;
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.error.show {
+  visibility: visible;
 }
