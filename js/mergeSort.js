@@ -1,4 +1,5 @@
 import {animateArrayDivision, mergeAnimation, getPosition} from './animations.js'
+import { getAnimationTimeout } from './menu.js';
 
 let time = 0;
 
@@ -32,26 +33,26 @@ function merge(array1, array2, array, parentArray, time) {
         mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
         array[pos++] = array1[i++];
       }
-      tiempo += 1000;
+      tiempo += getAnimationTimeout();
     } 
   
     while(i < array1.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array1[i++]; 
-      tiempo += 1000;
+      tiempo += getAnimationTimeout();
     } 
   
     while(j < array2.length) {
       let elementPosition = getPosition(parentArrayNodes[pos]);
       mergeAnimation(array2[j].element, elementPosition.top, elementPosition.left, tiempo);
       array[pos++] = array2[j++]; 
-      tiempo += 1000;
+      tiempo += getAnimationTimeout();
     }
 
     setTimeout(() => {
       parentArray.remove();
-    }, 1000 * parentArrayNodes.length);
+    }, getAnimationTimeout() * parentArrayNodes.length);
 
   }, time);
 }
@@ -63,11 +64,11 @@ export function mergeSort(array) {
   let splittedArray = arraySplitter(array);
 
   setTimeout(animateArrayDivision, time, [...splittedArray.firstHalf], [...splittedArray.secondHalf], arrayParent);
-  time += 2000;
+  time += getAnimationTimeout() * 2;
 
   mergeSort(splittedArray.firstHalf);
   mergeSort(splittedArray.secondHalf);
   merge(splittedArray.firstHalf, splittedArray.secondHalf, array, arrayParent, time);
 
-  time += 1000 * array.length;
+  time += getAnimationTimeout() * array.length;
 }

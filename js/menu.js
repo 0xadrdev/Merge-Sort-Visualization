@@ -8,6 +8,8 @@ const animationTimeoutInput = document.getElementById("animation-input");
 const arrayInput = document.getElementById("array-input");
 const messageElement = document.querySelector(".message");
 
+let animationTimeout = 1000;
+
 menuOpenBtn.onclick = () => {
   menuElement.classList.toggle("show");
 }
@@ -34,14 +36,22 @@ function parse(str) {
   return JSON.parse(replaced);
 }
 
+export function getAnimationTimeout() {
+  return animationTimeout;
+}
 
-//TODO: Este de aquí abajo es el que muestra los mensajes... 
+function setAnimationTimeout(timeout) {
+  animationTimeout = timeout;
+}
 
 saveMenuBtn.onclick = () => {
+  let arrayInputValue = arrayInput.value;
+  let animationTimeoutValue = Number(animationTimeoutInput.value);
+  if (!arrayInputValue) return; // If it's empty 
   try {
-    let arrayInputValue = arrayInput.value;
     let array = parse(arrayInputValue);
-    setMessageMenu("Saved!")
+    setAnimationTimeout(animationTimeoutValue);
+    setMessageMenu("Saved!");
     displayArray(array);
   } catch(e) {
     setErrorMenu(e);

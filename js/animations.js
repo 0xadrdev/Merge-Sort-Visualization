@@ -1,4 +1,4 @@
-import { sortingArray } from "./script.js";
+import { getAnimationTimeout } from "./menu.js";
 
 const listContainer = document.querySelector(".list-container");
 
@@ -21,12 +21,12 @@ export function getPosition(element) {
 function changeElementColor(element, time) {
   setTimeout(() => {
     element.style.background = "#64d419";
-  }, time);
+  }, time + getAnimationTimeout());
 }
 
 export function mergeAnimation(element, top, left, time) {
   setElementToPosition(element, top, left, time);
-  changeElementColor(element, time + 1000);
+  changeElementColor(element, time);
 }
 
 export function setElementToPosition(element, top, left, time) {
@@ -50,7 +50,7 @@ export function animateArrayDivision(leftArray, rightArray, parentArray) {
     firsElementPosition.left += 40;
   });
 
-  time += 1000;
+  time += getAnimationTimeout();
 
   rightArray.forEach(element => {
     let newElement = createNewListElement(element.data, firsElementPosition.left);

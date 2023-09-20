@@ -107,7 +107,7 @@ body {
 .menu {
   position: absolute;
   background-color: #000;
-  width: 200px;
+  width: 350px;
   padding: 20px;
   height: 100vh;
   z-index: 1000;

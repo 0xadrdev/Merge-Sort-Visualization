@@ -6,6 +6,10 @@ const sortBtn = document.getElementById("sort-btn");
 const unsortBtn = document.querySelector(".unsort-btn");
 const errorElement = document.querySelector(".error");
 
+let array; 
+
+displayArray([1,4,21,3])
+
 export let sortingArray = false;
 
 function removeDisplayedArray() {
@@ -21,13 +25,23 @@ export function displayArray(array) {
   removeDisplayedArray();
   listContainer.style.width = `${array.length * 40}px`; // To center the array. 
   for (const element of array) { 
-    let newElement = createNewListElement(element, pos);
-    listContainer.append(newElement.element);
-    newArray.push(newElement);
+    let newElementObject = createNewListElement(element, pos);
+    listContainer.append(newElementObject.element);
+    newArray.push(newElementObject);
     pos += 40;
   }
-  return newArray; 
+  setArray(newArray);
 }
+
+
+function getArray() {
+  return array;
+}
+
+function setArray(newArray) {
+  array = newArray;
+}
+
 
 function setError(errorText) {
   errorElement.innerText = errorText;
@@ -35,15 +49,15 @@ function setError(errorText) {
 }
 
 sortBtn.onclick = () => {
-  if (sortingArray) setError("Wait until array sorting process finish. ");
+  // if (sortingArray) setError("Wait until array sorting process finish. ");
   mergeSort(array);
-  sortingArray = true;
+  // sortingArray = true;
 };
 
 unsortBtn.onclick = () => {
-  if (sortingArray) setError("Wait until array sorting process finish. ");
+  console.log(getArray())
+  // if (sortingArray) setError("Wait until array sorting process finish. ");
   // createArray("[1,4,21,3]");
 };
 
-let array = displayArray([1,4,21,3]);
 
