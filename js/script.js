@@ -1,4 +1,4 @@
-import { mergeSort } from "./mergeSort.js";
+import { mergeSort, resetTime } from "./mergeSort.js";
 import { createNewListElement } from "./animations.js";
 
 const listContainer = document.querySelector(".list-container");
@@ -7,8 +7,11 @@ const unsortBtn = document.querySelector(".unsort-btn");
 const errorElement = document.querySelector(".error");
 
 let array; 
+let unsortedArray;
 
-displayArray([1,4,21,3])
+export let time = 0;
+
+displayArray([1,4,21,3]);
 
 export let sortingArray = false;
 
@@ -33,7 +36,6 @@ export function displayArray(array) {
   setArray(newArray);
 }
 
-
 function getArray() {
   return array;
 }
@@ -42,22 +44,55 @@ function setArray(newArray) {
   array = newArray;
 }
 
-
 function setError(errorText) {
   errorElement.innerText = errorText;
-  errorElement.classList.toggle("show");
+  errorElement.classList.add("show");
+}
+
+function removeError() {
+  errorElement.classList.remove("show");
+}
+
+function arrayIsSorted() {
+  let array = getArray();
+  for (const elementObject of array) {
+    if (elementObject.element.classList.contains("sorted")) return true;
+  }
+  return false;
 }
 
 sortBtn.onclick = () => {
-  // if (sortingArray) setError("Wait until array sorting process finish. ");
-  mergeSort(array);
-  // sortingArray = true;
+  if (sortingArray) return setError("Wait until array sorting process finish. ");
+  if (arrayIsSorted()) return setError("Already sorted. ");
+
+  resetTime();
+
+  unsortedArray = [...getArray()]
+
+  let animationDuration = mergeSort(getArray());
+  
+  removeError();
+  sortingArray = true;
+
+  console.log(animationDuration)
+  
+  setTimeout(() => {
+    sortingArray = false;
+    removeError();
+  }, animationDuration.time);
 };
 
 unsortBtn.onclick = () => {
-  console.log(getArray())
-  // if (sortingArray) setError("Wait until array sorting process finish. ");
-  // createArray("[1,4,21,3]");
+  if (sortingArray) return setError("Wait until array sorting process finish. ");
+  if (!arrayIsSorted()) return setError("Already unsorted. ");
+
+  let newArr = [];
+
+  unsortedArray.forEach(elementObject => {
+    newArr.push(elementObject.data);
+  })
+
+  displayArray(newArr);
 };
 
 

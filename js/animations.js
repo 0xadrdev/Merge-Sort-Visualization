@@ -3,7 +3,7 @@ import { getAnimationTimeout } from "./menu.js";
 const listContainer = document.querySelector(".list-container");
 
 export function createNewListElement(data, pos) {
-  let element = Object.assign(document.createElement("div"), {classList: "element element-new", innerText: data});
+  let element = Object.assign(document.createElement("div"), {classList: "element", innerText: data});
   element.style.left = pos + "px";
   element.data = data; 
   return {data, element};
@@ -20,7 +20,8 @@ export function getPosition(element) {
 
 function changeElementColor(element, time) {
   setTimeout(() => {
-    element.style.background = "#64d419";
+    element.classList.add("sorted")
+    // element.style.background = "#64d419";
   }, time + getAnimationTimeout());
 }
 
@@ -37,8 +38,8 @@ export function setElementToPosition(element, top, left, time) {
 }
 
 export function animateArrayDivision(leftArray, rightArray, parentArray) {
-  let firsElementPosition = getPosition(leftArray[0].element);
   let time = 0;
+  let firsElementPosition = getPosition(leftArray[0].element);
 
   parentArray.style.top = firsElementPosition.top + "px";
   

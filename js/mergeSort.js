@@ -3,6 +3,10 @@ import { getAnimationTimeout } from './menu.js';
 
 let time = 0;
 
+export function resetTime() {
+  time = 0;
+}
+
 function arraySplitter(array) {
   let arrayCopy = [...array]
   let middleIndex = Math.ceil(array.length / 2);
@@ -59,7 +63,7 @@ function merge(array1, array2, array, parentArray, time) {
 
 export function mergeSort(array) {
   if (array.length < 2 ) return; 
-
+  
   let arrayParent = createParentArray();
   let splittedArray = arraySplitter(array);
 
@@ -71,4 +75,6 @@ export function mergeSort(array) {
   merge(splittedArray.firstHalf, splittedArray.secondHalf, array, arrayParent, time);
 
   time += getAnimationTimeout() * array.length;
+
+  return time;
 }

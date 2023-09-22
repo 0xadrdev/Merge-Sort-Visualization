@@ -58,6 +58,10 @@ body {
   /* z-index: 1000000; */
 }
 
+.element.sorted {
+  background-color: #64d419;
+}
+
 .container-parent {
   position: absolute;
   display: flex;
