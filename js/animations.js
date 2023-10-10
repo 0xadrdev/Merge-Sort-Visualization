@@ -18,52 +18,52 @@ export function getPosition(element) {
   };
 }
 
-function changeElementColor(element, time) {
+function changeElementColor(element) {
   setTimeout(() => {
     element.classList.add("sorted")
-    // element.style.background = "#64d419";
-  }, time + getAnimationTimeout());
+  }, getAnimationTimeout());
 }
 
-export function mergeAnimation(element, top, left, time) {
-  setElementToPosition(element, top, left, time);
-  changeElementColor(element, time);
+function setElementToPosition(element, top, left) {
+  element.style.top = `${top}px`;
+  element.style.left = `${left}px`;
 }
 
-export function setElementToPosition(element, top, left, time) {
-  setTimeout(() => {
-    element.style.top = `${top}px`;
-    element.style.left = `${left}px`;
-  }, time);
+function setArrayToPosition(array, dir) {
+  return new Promise(resolve => {
+    for (const {element} of array) {
+      let elementPosition = getPosition(element);
+      let leftPosition = dir == "-" ? elementPosition.left - 10 : elementPosition.left + 10;
+      setElementToPosition(element, elementPosition.top + 60, leftPosition);
+    }
+    setTimeout(resolve, getAnimationTimeout());
+  }); 
 }
 
-export function animateArrayDivision(leftArray, rightArray, parentArray) {
-  let time = 0;
+export function mergeAnimation(element, top, left) {
+  return new Promise(resolve => {
+    setElementToPosition(element, top, left);
+    changeElementColor(element);
+    setTimeout(resolve, getAnimationTimeout());
+  });
+}
+
+export async function animateArrayDivision(leftArray, rightArray, parentArrayContainer) {
   let firsElementPosition = getPosition(leftArray[0].element);
+  let draftArrayParent = [...leftArray, ...rightArray];
 
-  parentArray.style.top = firsElementPosition.top + "px";
+  parentArrayContainer.style.top = firsElementPosition.top + "px";
   
-  leftArray.forEach(elementObject => {
-    let newObjectElement = createNewListElement(elementObject.data, firsElementPosition.left);
-    let elementPosition = getPosition(elementObject.element);
-    setElementToPosition(elementObject.element, elementPosition.top + 60, elementPosition.left - 10, time);
-    parentArray.append(newObjectElement.element);
+  for (const {data} of draftArrayParent) {
+    let newElementObject = createNewListElement(data, firsElementPosition.left);
+    parentArrayContainer.append(newElementObject.element);
     firsElementPosition.left += 40;
-  });
+  }
 
-  time += getAnimationTimeout();
+  listContainer.append(parentArrayContainer);
 
-  rightArray.forEach(element => {
-    let newElement = createNewListElement(element.data, firsElementPosition.left);
-    let elementPosition = getPosition(element.element);
-    setElementToPosition(element.element, elementPosition.top + 60, elementPosition.left + 10, time);
-    parentArray.append(newElement.element);
-    firsElementPosition.left += 40;
-  });
-
-  listContainer.append(parentArray);
-
-  return parentArray;
+  await setArrayToPosition(leftArray, "-");
+  await setArrayToPosition(rightArray, "+");
 };
 
 

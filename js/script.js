@@ -1,4 +1,4 @@
-import { mergeSort, resetTime } from "./mergeSort.js";
+import { mergeSort } from "./mergeSort.js";
 import { createNewListElement } from "./animations.js";
 
 const listContainer = document.querySelector(".list-container");
@@ -8,12 +8,9 @@ const errorElement = document.querySelector(".error");
 
 let array; 
 let unsortedArray;
-
-export let time = 0;
+let arrayProcess = false;
 
 displayArray([1,4,21,3]);
-
-export let sortingArray = false;
 
 function removeDisplayedArray() {
   const elements = document.querySelectorAll(".element");
@@ -62,28 +59,22 @@ function arrayIsSorted() {
 }
 
 sortBtn.onclick = () => {
-  if (sortingArray) return setError("Wait until array sorting process finish. ");
+  if (arrayProcess) return setError("Wait until array sorting process finish. ");
   if (arrayIsSorted()) return setError("Already sorted. ");
 
-  resetTime();
+  unsortedArray = [...getArray()];
 
-  unsortedArray = [...getArray()]
+  arrayProcess = true;
 
-  let animationDuration = mergeSort(getArray());
-  
-  removeError();
-  sortingArray = true;
-
-  console.log(animationDuration)
-  
-  setTimeout(() => {
-    sortingArray = false;
-    removeError();
-  }, animationDuration.time);
+  mergeSort(getArray())
+    .then(() => {
+      arrayProcess = false;
+      removeError();
+    });
 };
 
 unsortBtn.onclick = () => {
-  if (sortingArray) return setError("Wait until array sorting process finish. ");
+  if (arrayProcess) return setError("Wait until array sorting process finish. ");
   if (!arrayIsSorted()) return setError("Already unsorted. ");
 
   let newArr = [];
