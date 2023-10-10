@@ -8,12 +8,10 @@ const errorElement = document.querySelector(".error");
 
 let array; 
 let unsortedArray;
-
-export let time = 0;
+let sortingArray = false;
 
 displayArray([1,4,21,3]);
 
-export let sortingArray = false;
 
 function removeDisplayedArray() {
   const elements = document.querySelectorAll(".element");
@@ -24,7 +22,7 @@ function removeDisplayedArray() {
 
 export function displayArray(array) {
   let pos = 0;
-  let newArray = []
+  let newArray = [];
   removeDisplayedArray();
   listContainer.style.width = `${array.length * 40}px`; // To center the array. 
   for (const element of array) { 
@@ -74,12 +72,10 @@ sortBtn.onclick = () => {
   removeError();
   sortingArray = true;
 
-  console.log(animationDuration)
-  
   setTimeout(() => {
     sortingArray = false;
     removeError();
-  }, animationDuration.time);
+  }, animationDuration);
 };
 
 unsortBtn.onclick = () => {

@@ -19,6 +19,8 @@ body {
 .container {
   margin: 0 auto;
   max-width: 90%;
+  opacity: 1;
+  transition: opacity 2500ms;
 }
 
 /* Header */
@@ -139,6 +141,10 @@ body {
 
 .menu.show {
   transform: translate(0);
+}
+
+.menu.show + .container {
+  opacity: .5;
 }
 
 label {

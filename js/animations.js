@@ -21,7 +21,6 @@ export function getPosition(element) {
 function changeElementColor(element, time) {
   setTimeout(() => {
     element.classList.add("sorted")
-    // element.style.background = "#64d419";
   }, time + getAnimationTimeout());
 }
 
@@ -43,20 +42,20 @@ export function animateArrayDivision(leftArray, rightArray, parentArray) {
 
   parentArray.style.top = firsElementPosition.top + "px";
   
-  leftArray.forEach(elementObject => {
-    let newObjectElement = createNewListElement(elementObject.data, firsElementPosition.left);
-    let elementPosition = getPosition(elementObject.element);
-    setElementToPosition(elementObject.element, elementPosition.top + 60, elementPosition.left - 10, time);
+  leftArray.forEach(({data, element}) => {
+    let newObjectElement = createNewListElement(data, firsElementPosition.left);
+    let elementPosition = getPosition(element);
+    setElementToPosition(element, elementPosition.top + 60, elementPosition.left - 10, time);
     parentArray.append(newObjectElement.element);
     firsElementPosition.left += 40;
   });
 
   time += getAnimationTimeout();
 
-  rightArray.forEach(element => {
-    let newElement = createNewListElement(element.data, firsElementPosition.left);
-    let elementPosition = getPosition(element.element);
-    setElementToPosition(element.element, elementPosition.top + 60, elementPosition.left + 10, time);
+  rightArray.forEach(({data, element}) => {
+    let newElement = createNewListElement(data, firsElementPosition.left);
+    let elementPosition = getPosition(element);
+    setElementToPosition(element, elementPosition.top + 60, elementPosition.left + 10, time);
     parentArray.append(newElement.element);
     firsElementPosition.left += 40;
   });
