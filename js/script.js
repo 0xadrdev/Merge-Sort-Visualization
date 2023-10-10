@@ -21,7 +21,7 @@ function removeDisplayedArray() {
 
 export function displayArray(array) {
   let pos = 0;
-  let newArray = []
+  let newArray = [];
   removeDisplayedArray();
   listContainer.style.width = `${array.length * 40}px`; // To center the array. 
   for (const element of array) { 

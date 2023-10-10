@@ -1,7 +1,7 @@
 import {animateArrayDivision, mergeAnimation, getPosition} from './animations.js'
 
 function arraySplitter(array) {
-  let arrayCopy = [...array]
+  let arrayCopy = [...array];
   let middleIndex = Math.ceil(array.length / 2);
   let firstHalf = arrayCopy.splice(0, middleIndex);
   let secondHalf = arrayCopy.splice(-middleIndex);
