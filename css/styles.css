@@ -7,6 +7,10 @@
   /* outline: 1px solid red; */
 }
 
+:root {
+  --transition-duration: 1000ms;
+}
+
 body {
   line-height: 1.4;
   font-family: 'Roboto', sans-serif;
@@ -56,7 +60,7 @@ body {
   font-weight: bold;
   top: 0; 
   left: 0;
-  transition: top 1000ms, left 1000ms;
+  transition: top var(--transition-duration), left var(--transition-duration);
   /* z-index: 1000000; */
 }
 
