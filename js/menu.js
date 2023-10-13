@@ -1,4 +1,4 @@
-import { displayArray } from "./script.js";
+import { displayArray } from "./main.js";
 
 const menuElement = document.querySelector(".menu");
 const menuOpenBtn = document.querySelector(".fa-bars");
