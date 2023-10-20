@@ -19,9 +19,7 @@ export function getPosition(element) {
 }
 
 function changeElementColor(element) {
-  setTimeout(() => {
-    element.classList.add("sorted")
-  }, getAnimationTimeout());
+  element.classList.add("sorted")
 }
 
 function setElementToPosition(element, top, left) {
@@ -30,21 +28,27 @@ function setElementToPosition(element, top, left) {
 }
 
 function setArrayToPosition(array, dir) {
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
     for (const {element} of array) {
       let elementPosition = getPosition(element);
       let leftPosition = dir == "-" ? elementPosition.left - 10 : elementPosition.left + 10;
       setElementToPosition(element, elementPosition.top + 60, leftPosition);
+      element.ontransitionend = e => {
+        // if (e.propertyName == "left") return;
+        console.log(e);
+        resolve()
+      }
     }
-    setTimeout(resolve, getAnimationTimeout());
   }); 
 }
 
 export function mergeAnimation(element, top, left) {
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
     setElementToPosition(element, top, left);
-    changeElementColor(element);
-    setTimeout(resolve, getAnimationTimeout());
+    element.ontransitionend = () => {
+      changeElementColor(element);
+      resolve()
+    }
   });
 }
 

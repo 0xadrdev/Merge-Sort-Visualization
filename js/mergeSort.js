@@ -20,25 +20,25 @@ async function merge(array1, array2, array, parentArray, time) {
   let parentArrayNodes = [...parentArray.childNodes];
 
   while(i < array1.length && j < array2.length) {
-    let elementPosition = getPosition(parentArrayNodes[pos]);
+    let parentPosition = getPosition(parentArrayNodes[pos]);
     if (array1[i].data > array2[j].data) {
-      await mergeAnimation(array2[j].element, elementPosition.top, elementPosition.left);
+      await mergeAnimation(array2[j].element, parentPosition.top, parentPosition.left);
       array[pos++] = array2[j++];
     } else { 
-      await mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left);
+      await mergeAnimation(array1[i].element, parentPosition.top, parentPosition.left);
       array[pos++] = array1[i++];
     }
   } 
 
   while(i < array1.length) {
-    let elementPosition = getPosition(parentArrayNodes[pos]);
-    await mergeAnimation(array1[i].element, elementPosition.top, elementPosition.left);
+    let parentPostion = getPosition(parentArrayNodes[pos]);
+    await mergeAnimation(array1[i].element, parentPostion.top, parentPostion.left);
     array[pos++] = array1[i++]; 
   } 
 
   while(j < array2.length) {
-    let elementPosition = getPosition(parentArrayNodes[pos]);
-    await mergeAnimation(array2[j].element, elementPosition.top, elementPosition.left);
+    let parentPostion = getPosition(parentArrayNodes[pos]);
+    await mergeAnimation(array2[j].element, parentPostion.top, parentPostion.left);
     array[pos++] = array2[j++]; 
   }
   parentArray.remove();
