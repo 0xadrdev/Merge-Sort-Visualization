@@ -28,27 +28,23 @@ function setElementToPosition(element, top, left) {
 }
 
 function setArrayToPosition(array, dir) {
-  return new Promise(async resolve => {
+  return new Promise(resolve => {
     for (const {element} of array) {
       let elementPosition = getPosition(element);
       let leftPosition = dir == "-" ? elementPosition.left - 10 : elementPosition.left + 10;
       setElementToPosition(element, elementPosition.top + 60, leftPosition);
-      element.ontransitionend = e => {
-        // if (e.propertyName == "left") return;
-        console.log(e);
-        resolve()
-      }
     }
+    setTimeout(resolve, getAnimationTimeout())
   }); 
 }
 
 export function mergeAnimation(element, top, left) {
-  return new Promise(async resolve => {
+  return new Promise(resolve => {
     setElementToPosition(element, top, left);
     element.ontransitionend = () => {
-      changeElementColor(element);
-      resolve()
+      changeElementColor(element)
     }
+    setTimeout(resolve, getAnimationTimeout())
   });
 }
 

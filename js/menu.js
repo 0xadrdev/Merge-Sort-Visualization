@@ -1,6 +1,5 @@
 import { displayArray } from "./main.js";
 
-const rootElement = document.querySelector(":root");
 const menuElement = document.querySelector(".menu");
 const menuOpenBtn = document.querySelector(".fa-bars");
 const menuCloseBtn = document.querySelector(".fa-x");
@@ -43,7 +42,6 @@ export function getAnimationTimeout() {
 
 function setAnimationTimeout(timeout) {
   animationTimeout = timeout;
-  rootElement.style.setProperty("--transition-duration", `${timeout}ms`);
 }
 
 saveMenuBtn.onclick = () => {
